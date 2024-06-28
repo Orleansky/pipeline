@@ -1,3 +1,3 @@
-module Anastasia/skillfactory/multithreading/module20
+module pipeline
 
 go 1.21.5
