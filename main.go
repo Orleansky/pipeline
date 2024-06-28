@@ -2,7 +2,7 @@ package main
 
 import (
 	"bufio"
-	"fmt"
+	"log"
 	"os"
 	"strconv"
 	"sync"
@@ -87,8 +87,10 @@ func main() {
 				data = scanner.Text()
 				i, err := strconv.Atoi(data)
 				if err != nil {
-					fmt.Println("Пайплайн работает только с целыми числами!")
+					log.Println("Пайплайн работает только с целыми числами!")
 					continue
+				} else {
+					log.Println("Число", i, "целое, передано дальше")
 				}
 
 				integers <- i
@@ -106,9 +108,12 @@ func main() {
 					if number > 0 {
 						select {
 						case filtratedIntegers <- number:
+							log.Println("Число", number, "положительное, передано дальше")
 						case <-done:
 							return
 						}
+					} else {
+						log.Println("Число", number, "не положительное")
 					}
 				case <-done:
 					return
@@ -127,9 +132,12 @@ func main() {
 					if number > 0 && number%3 == 0 {
 						select {
 						case filtratedIntegers <- number:
+							log.Println("Число", number, "делится на 3, передано дальше")
 						case <-done:
 							return
 						}
+					} else {
+						log.Println("Число", number, "не делится на 3")
 					}
 				case <-done:
 					return
@@ -179,7 +187,7 @@ func main() {
 		for {
 			select {
 			case number := <-integers:
-				fmt.Println("Получено число: ", number)
+				log.Println("Получено число: ", number)
 			case <-done:
 				return
 			}
