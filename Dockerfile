@@ -11,4 +11,3 @@ LABEL maintainer="Anastasia<test@test.ru>"
 WORKDIR /root/
 COPY --from=compiling_stage /go/bin/pipeline .
 ENTRYPOINT ./pipeline
-EXPOSE 8080
